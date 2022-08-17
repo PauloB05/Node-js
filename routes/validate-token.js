@@ -3,6 +3,7 @@ const config = require('../config');
 
 // middleware to validate token (rutas protegidas)
 const verifyToken = (req, res, next) => {
+    console.log("aca el toke",req)
     const token = req.header('auth-token')
     if (!token) return res.status(401).json({ error: 'Acceso denegado' })
         try {

@@ -19,6 +19,7 @@ router.post('/login',userController.login);
 router.get('/test', ArticleController.test);
 router.post('/datos', ArticleController.datosCurso);
 
+router.get('/get-image/:image',ArticleController.getImage);
 
 router.use(verifyToken);
 router.post('/article',ArticleController.save);
@@ -36,7 +37,6 @@ router.post('/article/:campo/:name',ArticleController.buscarPorCampo);
 // });
 
 router.post('/upload-image/:id',md_upload, ArticleController.upload);
-router.get('/get-image/:image',ArticleController.getImage);
 router.get('/search/:search',ArticleController.search);
 
 module.exports = router;

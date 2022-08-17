@@ -59,7 +59,8 @@ let controller = {
 
     save:(req,resp)=>{
         //tomar parametros por post
-        let params = req.body;
+        let params = req.body.article;
+
         let date = moment().format('MMMM Do YYYY, h:mm:ss a');
         //validar datos
         try{
@@ -74,13 +75,14 @@ let controller = {
         }
         
         if(validate_title && validate_content){
+           
             //crear el objeto a guardar
             let article= new Article();
             //asignar valores 
             article.title = params.title;
             article.content = params.content;
-            article.created_at = date;
-            article.updated_at = '';
+            // article.created_at = date;
+            // article.updated_at = date;
             article.image = null;
 
             //guardar
@@ -231,6 +233,7 @@ let controller = {
     },
 
     upload:(req,resp)=>{
+      
         //config modulo connect multiparty
         // //tomar fichero
         if(!req.files){
@@ -238,9 +241,13 @@ let controller = {
                 status:'error',
                 message:file_name
             });
-        };
+        };  
+        //  console.log(req.files)
+        // return "hola mundo ";
         //conseguir nombre y extension
-        let file_path = req.files.file0.path;
+        let file_path = req.files.image.path;
+     
+        
         let file_split = file_path.split('\\');
         let file_name = file_split[2];
         let extension_split = file_name.split('\.');
@@ -295,6 +302,7 @@ let controller = {
             {"title": { "$regex": searchString, "$options" : "i" }},
             {"content": { "$regex": searchString, "$options" : "i" }}
         ]})
+        
         .sort([['date','descending']])
         .exec((err,articles)=>{
            if(err){
