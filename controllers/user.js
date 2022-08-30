@@ -20,7 +20,7 @@ var controller = {
 
 
    register: async (req, res) => {
-
+     
         // validate user
         const { error } = schemaRegister.validate(req.body)
      
